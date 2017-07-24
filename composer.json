@@ -1,0 +1,28 @@
+{
+	"name": "robotusers/commander",
+	"description": "Robotusers Command Bus abstraction",
+	"homepage": "https://github.com/robotusers/commander",
+	"type": "library",
+	"require": {
+		"php": "^7.1"
+	},
+	"require-dev": {
+		"league/tactician": "^1.0",
+		"phpstan/phpstan": "^0.7",
+		"phpunit/phpunit": "^6.0",
+		"squizlabs/php_codesniffer": "^3.0"
+	},
+	"suggest": {
+		"league/tactician": "To use TacticianAdapter."
+	},
+	"autoload": {
+		"psr-4": {
+			"Robotusers\\Commander\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Robotusers\\Commander\\Test\\": "tests"
+		}
+	}
+}
