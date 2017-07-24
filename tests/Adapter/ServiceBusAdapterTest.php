@@ -23,36 +23,30 @@
  * THE SOFTWARE.
  */
 
-namespace Robotusers\Commander\Adapter;
+namespace Robotusers\Commander\Test\Adapter;
 
-use League\Tactician\CommandBus;
-use Robotusers\Commander\CommandBusInterface;
+use PHPUnit\Framework\TestCase;
+use Prooph\ServiceBus\MessageBus;
+use Robotusers\Commander\Adapter\ServiceBusAdapter;
+use stdClass;
 
 /**
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class TacticianAdapter implements CommandBusInterface
+class ServiceBusAdapterTest extends TestCase
 {
-    /**
-     * @var CommandBus
-     */
-    protected $commandBus;
-
-    /**
-     * Constructor.
-     *
-     * @param CommandBus $commandBus CommandBus instance.
-     */
-    public function __construct(CommandBus $commandBus)
+    public function testHandle()
     {
-        $this->commandBus = $commandBus;
-    }
+        $commandBus = $this->createMock(MessageBus::class);
+        $adapter = new ServiceBusAdapter($commandBus);
 
-    /**
-     * {@inheritDoc}
-     */
-    public function handle($command)
-    {
-        return $this->commandBus->handle($command);
+        $command = new stdClass;
+        $commandBus->expects($this->once())
+            ->method('dispatch')
+            ->with($command)
+            ->willReturn(true);
+
+        $result = $adapter->handle($command);
+        $this->assertTrue($result);
     }
 }

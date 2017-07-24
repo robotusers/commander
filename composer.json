@@ -1,19 +1,23 @@
 {
 	"name": "robotusers/commander",
-	"description": "Robotusers Command Bus abstraction",
+	"description": "Command Bus abstraction for PHP.",
 	"homepage": "https://github.com/robotusers/commander",
 	"type": "library",
 	"require": {
 		"php": "^7.1"
 	},
 	"require-dev": {
-		"league/tactician": "^1.0",
+		"league/tactician": "*",
+		"prooph/service-bus": "*",
+		"simple-bus/message-bus": "*",
 		"phpstan/phpstan": "^0.7",
 		"phpunit/phpunit": "^6.0",
 		"squizlabs/php_codesniffer": "^3.0"
 	},
 	"suggest": {
-		"league/tactician": "To use TacticianAdapter."
+		"league/tactician": "To use TacticianAdapter.",
+		"prooph/service-bus": "To use ServiceBusAdapter.",
+		"simple-bus/message-bus": "To use SimpleBusAdapter."
 	},
 	"autoload": {
 		"psr-4": {

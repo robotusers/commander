@@ -25,27 +25,27 @@
 
 namespace Robotusers\Commander\Adapter;
 
-use League\Tactician\CommandBus;
 use Robotusers\Commander\CommandBusInterface;
+use SimpleBus\Message\Bus\MessageBus;
 
 /**
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class TacticianAdapter implements CommandBusInterface
+class SimpleBusAdapter implements CommandBusInterface
 {
     /**
-     * @var CommandBus
+     * @var MessageBus
      */
-    protected $commandBus;
+    protected $messageBus;
 
     /**
      * Constructor.
      *
-     * @param CommandBus $commandBus CommandBus instance.
+     * @param MessageBus $messageBus MessageBus instance.
      */
-    public function __construct(CommandBus $commandBus)
+    public function __construct(MessageBus $messageBus)
     {
-        $this->commandBus = $commandBus;
+        $this->messageBus = $messageBus;
     }
 
     /**
@@ -53,6 +53,6 @@ class TacticianAdapter implements CommandBusInterface
      */
     public function handle($command)
     {
-        return $this->commandBus->handle($command);
+        $this->messageBus->handle($command);
     }
 }
