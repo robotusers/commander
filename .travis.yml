@@ -1,0 +1,37 @@
+language: php
+
+dist: trusty
+
+sudo: false
+
+php:
+  - 7.1
+  
+env:
+  global:
+    - DEFAULT=1
+
+matrix:
+  fast_finish: true
+
+  include:
+    - php: 7.1
+      env: PHPCS=1 DEFAULT=0
+    - php: 7.1
+      env: PHPSTAN=5 DEFAULT=0
+    - php: 7.1
+      env: PHPSTAN=7 DEFAULT=0
+
+before_script:
+  - composer install
+
+script:
+  - if [[ $DEFAULT = 1 ]]; then vendor/bin/phpunit --coverage-clover=coverage.xml; fi
+  - if [[ $PHPCS = 1 ]]; then vendor/bin/phpcs -p --extensions=php --standard=PSR2 ./src ./tests; fi
+  - if [[ $PHPSTAN > 0 ]]; then vendor/bin/phpstan analyse ./src --level $PHPSTAN; fi
+
+notifications:
+  email: false
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
