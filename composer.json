@@ -2,6 +2,7 @@
 	"name": "robotusers/commander",
 	"description": "Command Bus abstraction for PHP.",
 	"homepage": "https://github.com/robotusers/commander",
+	"license": "MIT",
 	"type": "library",
 	"require": {
 		"php": "^7.1"
