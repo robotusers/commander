@@ -29,7 +29,7 @@ class OrdersController implements CommandBusAwareInterface
    {
         ...
         $command = new MakeOrderCommand($data);
-        $this->getCommandBus()->handle($command);
+        $this->handleCommand($command);
         ...
    }
 
