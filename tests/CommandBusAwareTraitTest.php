@@ -27,6 +27,9 @@ namespace Robotusers\Commander\Test;
 
 use PHPUnit\Framework\TestCase;
 use Robotusers\Commander\CommandBusAwareTrait;
+use Robotusers\Commander\CommandBusInterface;
+use RuntimeException;
+use stdClass;
 
 /**
  * @author Robert Pustułka <r.pustulka@robotusers.com>
@@ -37,7 +40,7 @@ class CommandBusAwareTraitTest extends TestCase
     public function testGetCommandBus()
     {
         $object = $this->getMockForTrait(CommandBusAwareTrait::class);
-        $bus = $this->createMock(\Robotusers\Commander\CommandBusInterface::class);
+        $bus = $this->createMock(CommandBusInterface::class);
         
         $result = $object->setCommandBus($bus);
         $this->assertSame($object, $result);
@@ -46,9 +49,26 @@ class CommandBusAwareTraitTest extends TestCase
         $this->assertSame($bus, $result);
     }
 
+    public function testHandleCommand()
+    {
+        $object = $this->getMockForTrait(CommandBusAwareTrait::class);
+        $bus = $this->createMock(CommandBusInterface::class);
+        $command = new stdClass();
+        $result = new stdClass();
+
+        $bus->expects($this->once())
+            ->method('handle')
+            ->with($command)
+            ->willReturn($result);
+
+        $object->setCommandBus($bus);
+        $return = $object->handleCommand($command);
+        $this->assertSame($result, $return);
+    }
+
     /**
      * @expectedException RuntimeException
-     * @expectedException Command bus has not been set.
+     * @expectedExceptionMessage Command bus has not been set.
      */
     public function testGetCommandBusMissing()
     {

@@ -61,4 +61,15 @@ trait CommandBusAwareTrait
 
         return $this;
     }
+
+    /**
+     * Wrapper for command bus `handle()` method.
+     *
+     * @param mixed $command Command class.
+     * @return mixed
+     */
+    public function handleCommand($command)
+    {
+        return $this->getCommandBus()->handle($command);
+    }
 }
