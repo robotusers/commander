@@ -29,5 +29,16 @@
 		"psr-4": {
 			"Robotusers\\Commander\\Test\\": "tests"
 		}
-	}
+	},
+    "scripts": {
+        "check": [
+            "@test",
+            "@stan-check",
+            "@cs-check"
+        ],
+        "cs-check": "phpcs --colors -p --standard=PSR2 ./src ./tests",
+        "cs-fix": "phpcbf --colors --standard=PSR2 ./src ./tests",
+        "stan-check": "phpstan analyse ./src -l 1",
+        "test": "phpunit --colors=always"
+    }
 }
