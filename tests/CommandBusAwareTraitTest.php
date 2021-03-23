@@ -66,13 +66,12 @@ class CommandBusAwareTraitTest extends TestCase
         $this->assertSame($result, $return);
     }
 
-    /**
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Command bus has not been set.
-     */
     public function testGetCommandBusMissing()
     {
         $object = $this->getMockForTrait(CommandBusAwareTrait::class);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Command bus has not been set.');
 
         $object->getCommandBus();
     }
